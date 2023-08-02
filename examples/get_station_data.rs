@@ -12,12 +12,8 @@ fn main() {
         .expect("Environment variable 'NETATMO_CLIENT_SECRET' is not set.")
         .to_string_lossy()
         .to_string();
-    let username = env::var_os("NETATMO_USERNAME")
-        .expect("Environment variable 'NETATMO_USERNAME' is not set.")
-        .to_string_lossy()
-        .to_string();
-    let password = env::var_os("NETATMO_PASSWORD")
-        .expect("Environment variable 'NETATMO_PASSWORD' is not set.")
+    let refresh_token = env::var_os("NETATMO_REFRESH_TOKEN")
+        .expect("Environment variable 'NETATMO_REFRESH_TOKEN' is not set.")
         .to_string_lossy()
         .to_string();
     let device_id = env::var_os("NETATMO_DEVICE_ID")
@@ -29,10 +25,9 @@ fn main() {
         client_id: &client_id,
         client_secret: &client_secret,
     };
-    let scopes = vec![Scope::ReadStation];
 
     let station_data = NetatmoClient::new(&client_credentials)
-        .authenticate(&username, &password, &scopes)
+        .authenticate(&refresh_token)
         .expect("Failed to authenticate")
         .get_station_data(&device_id)
         .expect("Failed to get station data");

@@ -66,8 +66,8 @@ pub struct UnauthenticatedClient<'a> {
 }
 
 impl<'a> UnauthenticatedClient<'a> {
-    pub fn authenticate(self, username: &'a str, password: &'a str, scopes: &[Scope]) -> Result<AuthenticatedClient> {
-        authenticate::get_token(&self, username, password, scopes)
+    pub fn authenticate(self, refresh_token: &'a str) -> Result<AuthenticatedClient> {
+        authenticate::refresh_token(&self, refresh_token)
             .map(|token| AuthenticatedClient { token, http: self.http })
             .map_err(|e| e.context(ErrorKind::AuthenticationFailed).into())
     }

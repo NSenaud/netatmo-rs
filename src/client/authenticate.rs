@@ -70,24 +70,10 @@ impl Scope {
     }
 }
 
-pub(crate) fn get_token(
-    unauthenticated_client: &UnauthenticatedClient,
-    username: &str,
-    password: &str,
-    scopes: &[Scope],
-) -> Result<Token> {
-    let scopes_str: String = scopes
-        .iter()
-        .map(Scope::to_scope_str)
-        .collect::<Vec<_>>()
-        .as_slice()
-        .join(".");
-
+pub(crate) fn refresh_token(unauthenticated_client: &UnauthenticatedClient, refresh_token: &str) -> Result<Token> {
     let mut params: HashMap<_, _> = unauthenticated_client.into();
-    params.insert("username", username);
-    params.insert("password", password);
-    params.insert("grant_type", "password");
-    params.insert("scope", &scopes_str);
+    params.insert("grant_type", "refresh_token");
+    params.insert("refresh_token", refresh_token);
 
     unauthenticated_client.call("oauth2/token", "https://api.netatmo.com/oauth2/token", &params)
 }
