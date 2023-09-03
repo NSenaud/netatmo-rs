@@ -61,6 +61,10 @@ pub struct DashboardData {
     pub max_temp: Option<f64>,
     pub min_temp: Option<f64>,
     pub pressure_trend: Option<String>,
+    #[serde(rename = "Rain")]
+    pub rain: Option<f64>,
+    pub sum_rain_1: Option<f64>,
+    pub sum_rain_24: Option<f64>,
     pub temp_trend: Option<String>,
     pub time_utc: Option<u64>,
 }
