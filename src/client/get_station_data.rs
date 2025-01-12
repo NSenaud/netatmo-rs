@@ -42,7 +42,7 @@ pub struct Device {
     pub place: Place,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Default, Serialize, Deserialize)]
 pub struct DashboardData {
     #[serde(rename = "AbsolutePressure")]
     pub absolute_pressure: Option<f64>,
