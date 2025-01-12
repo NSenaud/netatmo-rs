@@ -34,7 +34,8 @@ pub struct Device {
     #[serde(rename = "type")]
     pub type_info: String,
     pub wifi_status: f64,
-    pub dashboard_data: DashboardData,
+    #[serde(default)]
+    pub dashboard_data: Option<DashboardData>,
     pub data_type: Vec<String>,
     #[serde(default)]
     pub modules: Vec<Module>,
@@ -75,7 +76,8 @@ pub struct Module {
     pub id: String,
     pub battery_percent: u64,
     pub battery_vp: u64,
-    pub dashboard_data: DashboardData,
+    #[serde(default)]
+    pub dashboard_data: Option<DashboardData>,
     pub data_type: Vec<String>,
     pub firmware: u64,
     pub last_message: u64,
